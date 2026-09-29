@@ -1204,6 +1204,10 @@ namespace KickLifeSupport
             string text = $"{string.Join(", ", names)} died on {v.vesselName}: {cause}.";
             ScreenMessages.PostScreenMessage(text, 10f, ScreenMessageStyle.UPPER_CENTER);
 
+            // Drop out of time warp, like other events that need the player's attention
+            if (TimeWarp.fetch != null && TimeWarp.CurrentRateIndex > 0)
+                TimeWarp.SetRate(0, true, false);
+
             if (MessageSystem.Instance != null)
             {
                 MessageSystem.Instance.AddMessage(new MessageSystem.Message(
